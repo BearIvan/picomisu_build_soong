@@ -238,6 +238,10 @@ func flagsRule(ctx android.SingletonContext) android.Path {
 			android.PathForSource(ctx, "frameworks/base/config/hiddenapi-force-blacklist.txt")).
 		FlagWithInput("--greylist-packages ",
 			android.PathForSource(ctx, "frameworks/base/config/hiddenapi-greylist-packages.txt")).
+		// PICO OS exposes selected non-SDK members to applications without adding them to
+		// the public stubs; list them explicitly.
+		FlagWithInput("--whitelist ",
+			android.PathForSource(ctx, "frameworks/base/config/hiddenapi-whitelist.txt")).
 		FlagWithOutput("--output ", tempPath)
 
 	commitChangeForRestat(rule, tempPath, outputPath)
