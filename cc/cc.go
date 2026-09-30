@@ -1580,6 +1580,12 @@ func (c *Module) sdclang(ctx BaseModuleContext) bool {
 		return true
 	}
 
+	// Without the Snapdragon LLVM (SDCLANG=false, not in the open manifest) modules that ask
+	// for sdclang (bionic crt objects, libunwind_llvm) build with the platform clang.
+	if !config.SDClang {
+		return false
+	}
+
 	return sdclang
 }
 
